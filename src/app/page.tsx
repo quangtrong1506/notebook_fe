@@ -43,7 +43,6 @@ export default function Home() {
                             updatedAt: doc.updated_at,
                         };
                     })}
-                    isLoading={isLoading}
                 ></Table>
             )}
             {isLoading && <Loading />}

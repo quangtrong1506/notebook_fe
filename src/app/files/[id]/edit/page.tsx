@@ -13,7 +13,7 @@ function EditPage({ params }: { params: { id: string } }) {
                 title,
                 content,
             });
-            fetch("http://localhost:5050/docs/" + (params.id === "new" ? "" : params.id), {
+            fetch(process.env.API_DOMAIN + "docs/" + (params.id === "new" ? "" : params.id), {
                 method: params.id === "new" ? "POST" : "PUT",
                 body: raw,
                 redirect: "follow",
