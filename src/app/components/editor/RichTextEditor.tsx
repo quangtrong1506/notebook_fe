@@ -1,7 +1,8 @@
 // App.jsx / App.tsx
 "use client";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-const Editor2: any = CKEditor;
+import Editor from "@quangtrong1506/ckeditor-custom";
+const Editor2: any = Editor;
 function RichTextEditor({ content, handleChangeData }: { content: any; handleChangeData: any }) {
     return (
         <CKEditor
