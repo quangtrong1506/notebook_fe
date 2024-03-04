@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     env: {
-        API_DOMAIN: "http://localhost:5050/",
+        API_DOMAIN: "https://notebook-be.vercel.app/",
     },
 };
 
