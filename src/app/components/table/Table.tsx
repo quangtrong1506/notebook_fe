@@ -11,14 +11,15 @@ const convertTime = (time: string) => {
 };
 function Table({
     data,
+    isAdmin,
 }: {
     data: Array<{
         id: string;
         title: string;
         updatedAt: string;
     }>;
+    isAdmin: any;
 }) {
-    const isAdmin = window.localStorage.getItem("isAdmin");
     const handleRemoveButton = () => {
         Swal.fire({
             title: "Do you want to delete this document?",

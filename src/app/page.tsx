@@ -9,7 +9,9 @@ import "./globals.css";
 export default function Home() {
     const [docs, setDocs] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isAdmin, setIsAdmin] = useState(false);
     useEffect(() => {
+        if (localStorage.getItem("isAdmin")) setIsAdmin(true);
         fetch(process.env.API_DOMAIN + "docs", { method: "GET", redirect: "follow" })
             .then((response) => response.json())
             .then((result) => {
@@ -33,9 +35,10 @@ export default function Home() {
 
     return (
         <>
-            <Header handleChangeSearchQuery={handleChangeSearchQuery}></Header>
+            <Header handleChangeSearchQuery={handleChangeSearchQuery} isAdmin={isAdmin}></Header>
             {!isLoading && (
                 <Table
+                    isAdmin={isAdmin}
                     data={docs?.map((doc: { _id: string; title: string; updated_at: string }) => {
                         return {
                             id: doc._id,

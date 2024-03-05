@@ -5,7 +5,10 @@ import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 
 function Page({ params }: { params: any }) {
-    const isAdmin = window.localStorage.getItem("isAdmin");
+    const [isAdmin, setIsAdmin] = useState(false);
+    useEffect(() => {
+        if (localStorage.getItem("isAdmin")) setIsAdmin(true);
+    }, []);
     const [doc, setDocs] = useState<{ _id: string; content: any; title: any | null }>();
     useEffect(() => {
         if (params?.id !== "new")
@@ -22,11 +25,7 @@ function Page({ params }: { params: any }) {
                 .catch((error) => console.error(error));
         else redirect("/files/new/edit");
     }, [params.id]);
-    useEffect(() => {
-        window.onbeforeunload = function () {
-            return "Do you really want to close?";
-        };
-    }, []);
+
     if (!doc)
         return (
             <>

@@ -9,10 +9,10 @@ import Loading from "@/app/components/table/Loading";
 import Swal from "sweetalert2";
 
 function EditPage({ params }: { params: { id: string } }) {
+    const isAdmin = localStorage.getItem("isAdmin");
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const isAdmin = localStorage.getItem("isAdmin");
     const router = useRouter();
     const saveDocument = useMemo(() => {
         return (data: any) => {
@@ -71,6 +71,12 @@ function EditPage({ params }: { params: { id: string } }) {
             setContent(data);
         };
     }, []);
+    useEffect(() => {
+        window.onbeforeunload = function () {
+            return "Do you really want to close?";
+        };
+    }, []);
+
     useEffect(() => {
         if (!isAdmin) redirect("/files/" + params.id);
     }, [isAdmin, params.id]);
