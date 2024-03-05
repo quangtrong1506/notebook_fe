@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { Bounce, toast } from "react-toastify";
 
@@ -12,6 +12,7 @@ function EditPage({ params }: { params: { id: string } }) {
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const isAdmin = localStorage.getItem("isAdmin");
     const router = useRouter();
     const saveDocument = useMemo(() => {
         return (data: any) => {
@@ -70,6 +71,9 @@ function EditPage({ params }: { params: { id: string } }) {
             setContent(data);
         };
     }, []);
+    useEffect(() => {
+        if (!isAdmin) redirect("/files/" + params.id);
+    }, [isAdmin, params.id]);
     useEffect(() => {
         if (params?.id !== "new")
             fetch(process.env.API_DOMAIN + "docs/" + params.id, {
