@@ -39,11 +39,7 @@ function Page({ params }: { params: any }) {
         );
     return (
         <>
-            <div
-                style={{
-                    padding: "5px 25px",
-                }}
-            >
+            <div className="px-3 py-3">
                 <h1 className="font-bold text-[40px] flex justify-between mb-4">
                     <div className="flex">
                         <Link
@@ -73,7 +69,9 @@ function Page({ params }: { params: any }) {
                         </svg>
                     </Link>
                 </h1>
-                <div dangerouslySetInnerHTML={{ __html: doc?.content }}></div>
+                <div className="px-3 sm:px-6 md:px-12 mt-10">
+                    <div dangerouslySetInnerHTML={{ __html: doc?.content }}></div>
+                </div>
             </div>
         </>
     );
