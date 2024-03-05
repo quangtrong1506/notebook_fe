@@ -21,6 +21,11 @@ function Page({ params }: { params: any }) {
                 .catch((error) => console.error(error));
         else redirect("/files/new/edit");
     }, [params.id]);
+    useEffect(() => {
+        window.onbeforeunload = function () {
+            return "Do you really want to close?";
+        };
+    }, []);
     if (!doc)
         return (
             <>
