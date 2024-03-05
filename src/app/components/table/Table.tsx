@@ -18,6 +18,7 @@ function Table({
         updatedAt: string;
     }>;
 }) {
+    const isAdmin = localStorage.getItem("isAdmin");
     const handleRemoveButton = () => {
         Swal.fire({
             title: "Do you want to delete this document?",
@@ -49,12 +50,14 @@ function Table({
                             <p className="text-2xl md:text-3xl dark:text-gray-300">
                                 Sorry, there are no matching results
                             </p>
-                            <Link
-                                href="/files/new"
-                                className="px-4 py-2 text-xl w-[180px] rounded bg-purple-600 text-gray-50"
-                            >
-                                Create new
-                            </Link>
+                            {isAdmin && (
+                                <Link
+                                    href="/files/new"
+                                    className="px-4 py-2 text-xl w-[180px] rounded bg-purple-600 text-gray-50"
+                                >
+                                    Create new
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </section>

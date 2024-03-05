@@ -1,6 +1,8 @@
 import Link from "next/link";
 
 export default function Header({ handleChangeSearchQuery }: { handleChangeSearchQuery: any }) {
+    const isAdmin = localStorage.getItem("isAdmin");
+
     return (
         <>
             <header>
@@ -13,12 +15,15 @@ export default function Header({ handleChangeSearchQuery }: { handleChangeSearch
                         </Link>
                         <div>
                             <div className="flex">
-                                <Link
-                                    href={"/files/new"}
-                                    className="pt-[5px] px-3 mx-3 rounded-md border"
-                                >
-                                    Create new
-                                </Link>
+                                {isAdmin && (
+                                    <Link
+                                        href={"/files/new"}
+                                        className="pt-[5px] px-3 mx-3 rounded-md border"
+                                    >
+                                        Create new
+                                    </Link>
+                                )}
+
                                 <form className="max-w-md mx-auto ">
                                     <label
                                         htmlFor="default-search"
