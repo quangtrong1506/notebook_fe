@@ -71,9 +71,14 @@ function EditPage({ params }: { params: { id: string } }) {
             setContent(data);
         };
     }, []);
+
     useEffect(() => {
         window.onbeforeunload = function () {
             return "Do you really want to close?";
+        };
+        return () => {
+            console.log("Do you really want to close?");
+            window.onbeforeunload = null;
         };
     }, []);
 
