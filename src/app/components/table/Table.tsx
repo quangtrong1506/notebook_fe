@@ -18,7 +18,7 @@ function Table({
         updatedAt: string;
     }>;
 }) {
-    const isAdmin = localStorage.getItem("isAdmin");
+    const isAdmin = window.localStorage.getItem("isAdmin");
     const handleRemoveButton = () => {
         Swal.fire({
             title: "Do you want to delete this document?",

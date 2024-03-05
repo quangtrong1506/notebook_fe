@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 
 function Page({ params }: { params: any }) {
-    const isAdmin = localStorage.getItem("isAdmin");
+    const isAdmin = window.localStorage.getItem("isAdmin");
     const [doc, setDocs] = useState<{ _id: string; content: any; title: any | null }>();
     useEffect(() => {
         if (params?.id !== "new")

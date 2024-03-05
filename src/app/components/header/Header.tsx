@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export default function Header({ handleChangeSearchQuery }: { handleChangeSearchQuery: any }) {
-    const isAdmin = localStorage.getItem("isAdmin");
+    const isAdmin = window.localStorage.getItem("isAdmin");
 
     return (
         <>
