@@ -3,6 +3,8 @@ import RichTextEditor from "@/app/components/editor/RichTextEditor";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { Bounce, toast } from "react-toastify";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
 function EditPage({ params }: { params: { id: string } }) {
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState("");
@@ -13,6 +15,19 @@ function EditPage({ params }: { params: { id: string } }) {
                 title,
                 content,
             });
+            Swal.fire({
+                title: "Uploading!",
+                html: "Please wait! Uploading your documents ",
+                didOpen: () => {
+                    Swal.showLoading();
+                },
+                allowOutsideClick: false,
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log("I was closed by the timer");
+                }
+            });
             fetch(process.env.API_DOMAIN + "docs/" + (params.id === "new" ? "" : params.id), {
                 method: params.id === "new" ? "POST" : "PUT",
                 body: raw,
@@ -21,19 +36,27 @@ function EditPage({ params }: { params: { id: string } }) {
             })
                 .then((response) => response.json())
                 .then((result) => {
-                    console.log(result);
-                    toast.success("Save document successfully!", {
-                        position: "top-center",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                        transition: Bounce,
-                    });
-                    router.push("/files/" + params.id);
+                    Swal.close();
+                    if (result.status_code === 200) {
+                        toast.success("Save document successfully!", {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            transition: Bounce,
+                        });
+                        router.push("/files/" + result.data._id);
+                    } else {
+                        Swal.fire(
+                            "Error",
+                            "Status: " + result.status_code + "<br/>Message: " + result.message,
+                            "error"
+                        );
+                    }
                 })
                 .catch((error) => console.error(error));
         };

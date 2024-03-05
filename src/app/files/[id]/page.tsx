@@ -44,7 +44,7 @@ function Page({ params }: { params: any }) {
                     padding: "5px 25px",
                 }}
             >
-                <h1 className="font-bold text-[40px] flex justify-between">
+                <h1 className="font-bold text-[40px] flex justify-between mb-4">
                     <div className="flex">
                         <Link
                             href={"/"}
