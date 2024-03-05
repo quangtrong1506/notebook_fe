@@ -88,6 +88,7 @@ function EditPage({ params }: { params: { id: string } }) {
         else {
             setContent("");
             setTitle("Document");
+            setIsLoading(false);
         }
     }, [params.id]);
     if (isLoading)
