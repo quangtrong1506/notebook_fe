@@ -1,13 +1,17 @@
 "use client";
-import RichTextEditor from "@/app/components/editor/RichTextEditor";
+
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { Bounce, toast } from "react-toastify";
+
+import RichTextEditor from "@/app/components/editor/RichTextEditor";
+import Loading from "@/app/components/table/Loading";
 import Swal from "sweetalert2";
-import "sweetalert2/src/sweetalert2.scss";
+
 function EditPage({ params }: { params: { id: string } }) {
     const [title, setTitle] = useState<string>("");
-    const [content, setContent] = useState("");
+    const [content, setContent] = useState<string>("");
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const router = useRouter();
     const saveDocument = useMemo(() => {
         return (data: any) => {
@@ -60,7 +64,7 @@ function EditPage({ params }: { params: { id: string } }) {
                 })
                 .catch((error) => console.error(error));
         };
-    }, [title, content]);
+    }, [title, content, params.id, router]);
     const handleChangeData = useMemo(() => {
         return (data: string) => {
             setContent(data);
@@ -77,6 +81,7 @@ function EditPage({ params }: { params: { id: string } }) {
                     if (result.data) {
                         setTitle(result.data.title);
                         setContent(result.data.content);
+                        setIsLoading(false);
                     }
                 })
                 .catch((error) => console.error(error));
@@ -84,7 +89,18 @@ function EditPage({ params }: { params: { id: string } }) {
             setContent("");
             setTitle("Document");
         }
-    }, []);
+    }, [params.id]);
+    if (isLoading)
+        return (
+            <>
+                <div className="animate-pulse mt-6 ms-6 mb-6">
+                    <div className="flex w-full">
+                        <div className="h-5 w-10/12 bg-gray-300 rounded-md"></div>
+                    </div>
+                </div>
+                <Loading />
+            </>
+        );
     return (
         <div className="p-2">
             <div className="flex mb-2">
