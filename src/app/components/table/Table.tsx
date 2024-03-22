@@ -29,7 +29,7 @@ function Table({
             denyButtonText: `Delete`,
         }).then((result) => {
             if (result.isDenied) {
-                fetch(process.env.API_DOMAIN + "/docs/" + id, {
+                fetch(process.env.API_DOMAIN + "docs/" + id, {
                     method: "DELETE",
                     redirect: "follow",
                 })
